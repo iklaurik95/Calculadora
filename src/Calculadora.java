@@ -11,9 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -24,7 +23,7 @@ public class Calculadora extends JFrame {
 	private JTextField TextoResultado;
 	private boolean decimal;
 	private double numero;
-	
+	private String operador;
 	/**
 	 * Launch the application.
 	 */
@@ -55,7 +54,7 @@ public class Calculadora extends JFrame {
 		JButton BotonIgual = new JButton("=");
 		BotonIgual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText("=");
+					
 				}
 				
 		});
@@ -79,45 +78,46 @@ public class Calculadora extends JFrame {
 		JButton BotonPlusMinus = new JButton("+/-");
 		BotonPlusMinus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-					if(TextoResultado.getText().equals("-")){
-						TextoResultado.setText(BotonPlusMinus.getText() + TextoResultado.getText());
-					}else{
-						
-					}
-				}
+					
+			}
 			
 		});
-		JButton BotonPlus = new JButton("+");
-		BotonPlus.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-					if(TextoResultado.getText().equals(numero) ){
-						double resultado = numero;
-						TextoResultado.setText("");
-					}else{
-						
-					}
-				}
-						
+		JButton BotonSumar = new JButton("+");
+		BotonSumar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				decimal = false;
+				numero = Double.parseDouble(TextoResultado.getText());
+				operador = BotonSumar.getText();
+				TextoResultado.setText(null);
+			}
 		});
 		JButton BotonRestar = new JButton("-");
 		BotonRestar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText("-");
-				}
-						
+				decimal = false;
+				numero = Double.parseDouble(TextoResultado.getText());
+				operador = BotonRestar.getText();
+				TextoResultado.setText(null);
+			}
 		});
 		
 		JButton BotonDividir = new JButton("/");
 		BotonDividir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText("/");
+				decimal = false;
+				numero = Double.parseDouble(TextoResultado.getText());
+				operador = BotonDividir.getText();
+				TextoResultado.setText(null);
 				}
 				
 		});
 		JButton BotonMultiplicar = new JButton("*");
 		BotonMultiplicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText("*");
+				decimal = false;
+				numero = Double.parseDouble(TextoResultado.getText());
+				operador = BotonMultiplicar.getText();
+				TextoResultado.setText(null);
 				}
 				
 		});
@@ -208,7 +208,7 @@ public class Calculadora extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(Boton6, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(BotonPlus, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+							.addComponent(BotonSumar, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createSequentialGroup()
@@ -259,7 +259,7 @@ public class Calculadora extends JFrame {
 						.addComponent(Boton5, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 							.addComponent(Boton6, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-							.addComponent(BotonPlus, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(BotonSumar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -283,3 +283,4 @@ public class Calculadora extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 }
+

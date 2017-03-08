@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,7 +13,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -20,10 +20,16 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class Calculadora extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField TextoResultado;
+	private JTextField textoResultado;
+	private double numero1;
+	private double numero2;
 	private boolean decimal;
-	private double numero;
 	private String operador;
+	private JButton botonMultiplicar;
+	private JButton botonDividir;
+	private JButton botonRestar;
+	private JButton botonSumar;
+
 	/**
 	 * Launch the application.
 	 */
@@ -49,152 +55,181 @@ public class Calculadora extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
-		
-		JButton BotonIgual = new JButton("=");
-		BotonIgual.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					
-				}
-				
+
+		JButton botonBorrar = new JButton("C");
+		botonBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText("");
+				decimal = false;
+			}
+
 		});
-		JButton BotonBorrar = new JButton("C");
-		BotonBorrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText("");
-					decimal = false;
-				}
-						
-		});
-		JButton BotonPunto = new JButton(".");
-		BotonPunto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-				if(decimal == false){
-					TextoResultado.setText(TextoResultado.getText() + BotonPunto.getText());
+
+		JButton botonPunto = new JButton(".");
+		botonPunto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (decimal == false) {
+					textoResultado.setText(textoResultado.getText() + botonPunto.getText());
 					decimal = true;
 				}
-			}			
-		});
-		JButton BotonPlusMinus = new JButton("+/-");
-		BotonPlusMinus.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					
 			}
-			
 		});
-		JButton BotonSumar = new JButton("+");
-		BotonSumar.addActionListener(new ActionListener() {
+
+		JButton botonPlusMinus = new JButton("+/-");
+		botonPlusMinus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//double numero = Double.parseDouble(textoResultado.setText(textoResultado.getText()));
+				
+			}
+
+		});
+		
+		JButton botonIgual = new JButton("=");
+		botonIgual.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(operador.equals(botonSumar)){
+					Double resultado = numero1+numero2;
+					textoResultado.setText(resultado.toString());
+				}else if(operador.equals(botonRestar)){
+					Double resultado = numero1-numero2;
+					textoResultado.setText(resultado.toString());
+				}else if(operador.equals(botonDividir)){
+					Double resultado = numero1/numero2;
+					textoResultado.setText(resultado.toString());
+				}else if(operador.equals(botonMultiplicar)){
+					Double resultado = numero1*numero2;
+					textoResultado.setText(resultado.toString());
+				}
+			}
+		});
+
+		botonSumar = new JButton("+");
+		botonSumar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				decimal = false;
-				numero = Double.parseDouble(TextoResultado.getText());
-				operador = BotonSumar.getText();
-				TextoResultado.setText(null);
+				numero1 = Double.parseDouble(textoResultado.getText());
+				operador = botonSumar.getText();
+				textoResultado.setText(null);
 			}
 		});
-		JButton BotonRestar = new JButton("-");
-		BotonRestar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
+
+		botonRestar = new JButton("-");
+		botonRestar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				decimal = false;
-				numero = Double.parseDouble(TextoResultado.getText());
-				operador = BotonRestar.getText();
-				TextoResultado.setText(null);
+				numero1 = Double.parseDouble(textoResultado.getText());
+				operador = botonRestar.getText();
+				textoResultado.setText(null);
 			}
 		});
-		
-		JButton BotonDividir = new JButton("/");
-		BotonDividir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
+
+		botonDividir = new JButton("/");
+		botonDividir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				decimal = false;
-				numero = Double.parseDouble(TextoResultado.getText());
-				operador = BotonDividir.getText();
-				TextoResultado.setText(null);
-				}
-				
+				numero1 = Double.parseDouble(textoResultado.getText());
+				operador = botonDividir.getText();
+				textoResultado.setText(null);
+			}
+
 		});
-		JButton BotonMultiplicar = new JButton("*");
-		BotonMultiplicar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
+
+		botonMultiplicar = new JButton("*");
+		botonMultiplicar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				decimal = false;
-				numero = Double.parseDouble(TextoResultado.getText());
-				operador = BotonMultiplicar.getText();
-				TextoResultado.setText(null);
-				}
-				
+				numero1 = Double.parseDouble(textoResultado.getText());
+				operador = botonMultiplicar.getText();
+				textoResultado.setText(null);
+			}
+
 		});
-		JButton Boton0 = new JButton("0");
-		Boton0.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton0.getText());
-				}
-						
+
+		JButton boton0 = new JButton("0");
+		boton0.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton0.getText());
+			}
+
 		});
-		JButton Boton1 = new JButton("1");
-		Boton1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton1.getText());
-				}
-						
+
+		JButton boton1 = new JButton("1");
+		boton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton1.getText());
+			}
+
 		});
-		JButton Boton2 = new JButton("2");
-		Boton2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton2.getText());
-				}
-						
+
+		JButton boton2 = new JButton("2");
+		boton2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton2.getText());
+			}
+
 		});
-		JButton Boton3 = new JButton("3");
-		Boton3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton3.getText());
-				}
-						
+
+		JButton boton3 = new JButton("3");
+		boton3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton3.getText());
+			}
+
 		});
-		JButton Boton4 = new JButton("4");
-		Boton4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton4.getText());
-				}
-				
+
+		JButton boton4 = new JButton("4");
+		boton4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton4.getText());
+			}
+
 		});
-		JButton Boton5 = new JButton("5");
-		Boton5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton5.getText());
-				}
-				
+
+		JButton boton5 = new JButton("5");
+		boton5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton5.getText());
+			}
+
 		});
-		JButton Boton6 = new JButton("6");
-		Boton6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton6.getText());
-				}
-				
+
+		JButton boton6 = new JButton("6");
+		boton6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton6.getText());
+			}
+
 		});
-		JButton Boton7 = new JButton("7");
-		Boton7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton7.getText());
-				}
-				
+
+		JButton boton7 = new JButton("7");
+		boton7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton7.getText());
+			}
+
 		});
-		JButton Boton8 = new JButton("8");
-		Boton8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton8.getText());
-				}
-				
+
+		JButton boton8 = new JButton("8");
+		boton8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton8.getText());
+			}
+
 		});
-		JButton Boton9 = new JButton("9");
-		Boton9.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-					TextoResultado.setText(TextoResultado.getText() + Boton9.getText());
-				}
-				
+
+		JButton boton9 = new JButton("9");
+		boton9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textoResultado.setText(textoResultado.getText() + boton9.getText());
+			}
+
 		});
+
+		textoResultado = new JTextField();
+		textoResultado.setColumns(10);
 		
 		
-		TextoResultado = new JTextField();
-		TextoResultado.setColumns(10);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -202,85 +237,84 @@ public class Calculadora extends JFrame {
 					.addGap(57)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(Boton4, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addComponent(boton4, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(Boton5, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addComponent(boton5, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(Boton6, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addComponent(boton6, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(BotonSumar, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+							.addComponent(botonSumar, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addComponent(Boton0, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-										.addComponent(Boton7, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+										.addComponent(boton0, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+										.addComponent(boton7, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(BotonPunto, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-										.addComponent(Boton8, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(BotonPlusMinus, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
+										.addComponent(botonPunto, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+										.addComponent(boton8, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(botonPlusMinus, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(botonIgual, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(BotonBorrar, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+									.addComponent(boton9, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(BotonMultiplicar, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+									.addComponent(botonDividir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(Boton9, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+									.addComponent(botonBorrar, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(BotonDividir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(BotonIgual, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(botonMultiplicar, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(Boton1, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addComponent(boton1, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(Boton2, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addComponent(boton2, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(Boton3, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addComponent(boton3, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(BotonRestar, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
-						.addComponent(TextoResultado))
+							.addComponent(botonRestar, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textoResultado))
 					.addContainerGap(89, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(44)
-					.addComponent(TextoResultado, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+					.addComponent(textoResultado, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(Boton1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addComponent(Boton2, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addComponent(Boton3, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addComponent(BotonRestar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+						.addComponent(boton1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+						.addComponent(boton2, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+						.addComponent(boton3, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+						.addComponent(botonRestar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(Boton4, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addComponent(Boton5, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+						.addComponent(boton4, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+						.addComponent(boton5, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-							.addComponent(Boton6, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-							.addComponent(BotonSumar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(boton6, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+							.addComponent(botonSumar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(Boton7, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+							.addComponent(boton7, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(Boton0, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-								.addComponent(BotonPunto, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-								.addComponent(BotonBorrar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-								.addComponent(BotonMultiplicar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(boton0, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+								.addComponent(botonPunto, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+								.addComponent(botonBorrar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+								.addComponent(botonMultiplicar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-							.addComponent(Boton9, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-							.addComponent(BotonDividir, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
-						.addComponent(Boton8, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+							.addComponent(boton9, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+							.addComponent(botonDividir, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+						.addComponent(boton8, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(BotonIgual, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addComponent(BotonPlusMinus, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(botonIgual, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(botonPlusMinus, GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
 					.addGap(20))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
 }
-
